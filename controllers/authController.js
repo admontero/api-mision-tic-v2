@@ -54,20 +54,20 @@ exports.userAuthenticated = async (req, res) => {
 
         //Validar si está autorizado
         if (user.status === 'pendiente') {
-            return res.status(401).send({ msg: 'Su usuario está pendiente de autorizar' });
+            return res.status(401).send({ type: 'warning', title: '¡Cuenta Creada!', msg: 'Su usuario está pendiente de autorizar' });
         }
 
         if (user.status === 'no autorizado') {
-            return res.status(401).send({ msg: 'Su usuario está desautorizado' });
+            return res.status(401).send({ type: 'cancel', title: '¡Bloqueado!', msg: 'Su usuario está desautorizado para ingresar' });
         }
 
         if (user.role === '') {
-            return res.status(401).send({ msg: 'Su usuario está sin permisos' });
+            return res.status(401).send({ type: 'cancel', title: '¡Sin Permisos!', msg: 'Su usuario no tiene rol asignado' });
         }
         
         res.json({ user });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ msg: 'Hubo un error' });
+        res.status(500).json({ type: 'cancel', title: '¡Error!', msg: 'Hubo un error en el servidor' });
     }
 };

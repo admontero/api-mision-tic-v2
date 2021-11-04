@@ -26,6 +26,11 @@ const PurchaseSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    seller_id: {
+        type: mongoose.Schema.Types.Number,
+        ref: 'User',
+        required: true,
+    },
     products: [
         {
             product_id: {

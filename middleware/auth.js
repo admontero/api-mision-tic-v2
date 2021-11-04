@@ -6,7 +6,7 @@ module.exports = function (req, res, next) {
 
     //Revisar si no hay token
     if (!token) {
-        return res.status(401).send({ msg: 'No hay token, permiso no válido' });
+        return res.status(401).send({ type: 'cancel', title: '¡Acceso Denegado!', msg: 'Sin credenciales para ingresar' });
     }
 
     //Validamos el token
@@ -16,6 +16,6 @@ module.exports = function (req, res, next) {
         req._id = passed._id;
         next();
     } catch (error) {
-        res.status(401).send({ msg: 'Token no válido' });
+        res.status(401).send({ type: 'cancel', title: '¡Acceso Denegado!', msg: 'Sin credenciales para ingresar' });
     }
 };
